@@ -30,6 +30,7 @@ in
         enable = true;
         withName = "systemvm-systemd";
         withApparmor = true;
+        withDebug = config.ghaf.profiles.debug.enable;
       };
     };
   }

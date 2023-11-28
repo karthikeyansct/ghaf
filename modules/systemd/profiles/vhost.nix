@@ -33,6 +33,7 @@ in
         withVirtualization = true;
         withPolkit = true;
         withEfi = pkgs.stdenv.hostPlatform.isEfi;
+        withDebug = config.ghaf.profiles.debug.enable;
       };
     };
 

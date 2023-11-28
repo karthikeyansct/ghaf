@@ -38,6 +38,7 @@ in
         enable = true;
         withName = "appvm-systemd";
         withContainers = cfg.withContainers;
+        withDebug = config.ghaf.profiles.debug.enable;
       };
     };
   }

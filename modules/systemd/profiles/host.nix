@@ -38,6 +38,7 @@ in
       ghaf.systemd.base.withNss = true;
       ghaf.systemd.base.withSerial = true;
       ghaf.systemd.base.withContainers = cfg.withContainers;
+      ghaf.systemd.base.withDebug = config.ghaf.profiles.debug.enable;
     };
 
   }

@@ -169,6 +169,12 @@ in
         default = false;
       };
 
+      withHardenedServices = mkOption {
+        description = "Enable systemd hardened services.";
+        type = types.bool;
+        default = true;
+      };
+
       withName = mkOption {
         description = "Set systemd derivation name.";
         type = types.str;
@@ -268,13 +274,6 @@ in
 
     config = mkIf cfg.enable {
 
-      assertions = [
-        {
-          assertion = !cfg.withDebug;
-          message = "devb";
-        }
-      ];
-
       # Systemd configuration
       systemd = {
 
@@ -287,7 +286,9 @@ in
         services = {
           # @TODO: Add systemd hardened configurations
           timesyncd.enable = cfg.withNetwork;
-        };
+
+        } // (if cfg.withHardenedServices then (import ./hardened-services/default.nix)
+              else {});    
 
         # Misc. configurations
         enableEmergencyMode = cfg.withDebug;
