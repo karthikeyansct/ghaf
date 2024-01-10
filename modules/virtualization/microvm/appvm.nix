@@ -38,6 +38,7 @@
               ssh.daemon.enable = lib.mkDefault configHost.ghaf.development.ssh.daemon.enable;
               debug.tools.enable = lib.mkDefault configHost.ghaf.development.debug.tools.enable;
             };
+            systemd.profiles.appvm.enable = true;
           };
 
           # SSH is very picky about the file permissions and ownership and will

@@ -21,6 +21,7 @@
             ssh.daemon.enable = lib.mkDefault configHost.ghaf.development.ssh.daemon.enable;
             debug.tools.enable = lib.mkDefault configHost.ghaf.development.debug.tools.enable;
           };
+          systemd.profiles.systemvm.enable = true;
         };
 
         system.stateVersion = lib.trivial.release;

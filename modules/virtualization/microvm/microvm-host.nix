@@ -14,5 +14,6 @@ in
 
     config = mkIf cfg.enable {
       microvm.host.enable = true;
+      ghaf.systemd.profiles.vhost.enable = true;
     };
   }
