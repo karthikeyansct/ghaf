@@ -20,8 +20,8 @@
     withCompression = cfg.withDebug || cfg.withContainers;
     withCoredump = cfg.withDebug || cfg.withContainers;
     inherit (cfg) withCryptsetup;
-    inherit (cfg) withEfi; # also controls 'withBootloader' (compiles systemd-boot)
-    withBootloader = cfg.withEfi;
+    inherit (cfg) withEfi;        # withEfi also controls 'withBootloader' (compiles systemd-boot)
+    withBootloader = cfg.withEfi; # but for some reason it fails if not explicity set
     withFido2 = cfg.withFido;
     withHostnamed = cfg.withNetwork;
     withImportd = cfg.withContainers;
