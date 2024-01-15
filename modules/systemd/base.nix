@@ -6,7 +6,6 @@
   pkgs,
   ...
 }: let
-
   # Ghaf configuration
   cfg = config.ghaf.systemd.base;
 
@@ -20,7 +19,7 @@
     withCompression = cfg.withDebug || cfg.withContainers;
     withCoredump = cfg.withDebug || cfg.withContainers;
     inherit (cfg) withCryptsetup;
-    inherit (cfg) withEfi;        # withEfi also controls 'withBootloader' (compiles systemd-boot)
+    inherit (cfg) withEfi; # withEfi also controls 'withBootloader' (compiles systemd-boot)
     withBootloader = cfg.withEfi; # but for some reason it fails if not explicity set
     withFido2 = cfg.withFido;
     withHostnamed = cfg.withNetwork;
@@ -162,15 +161,9 @@
     ]);
 
   # Default user unit configuration
-  user.units = lib.mkForce {
-    "printer.target".enable = cfg.withPrinter;
-    "printer.service".enable = cfg.withPrinter;
-  };
 in
   with lib; {
-
     options.ghaf.systemd.base = {
-
       enable = mkOption {
         description = "Enable minimal systemd configuration.";
         type = types.bool;
@@ -269,10 +262,8 @@ in
     };
 
     config = mkIf cfg.enable {
-
       # Systemd configuration
       systemd = {
-
         # Package and unit configuration
         inherit package;
         inherit suppressedSystemUnits;
@@ -287,6 +278,5 @@ in
         enableEmergencyMode = cfg.withDebug;
         coredump.enable = cfg.withContainers;
       };
-
     };
   }

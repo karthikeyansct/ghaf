@@ -47,10 +47,8 @@
   };
 
   cfg_list = [cfg.host.enable cfg.vhost.enable cfg.netvm.enable cfg.guivm.enable cfg.appvm.enable];
-
 in
   with lib; {
-
     imports = [
       ./base.nix
     ];
@@ -76,21 +74,21 @@ in
     };
 
     config = {
-
       assertions = [
         {
-          assertion = (lists.count (x: x == true) cfg_list) == 1;
-          message = "One systemd profile can be enabled at a time: " + toString((lists.count (x: x == true) cfg_list)) + " profiles enabled." ;
+          assertion = (lists.count (x: x) cfg_list) == 1;
+          message = "One systemd profile can be enabled at a time: " + toString (lists.count (x: x) cfg_list) + " profiles enabled.";
         }
       ];
 
-      ghaf.systemd.base = {
-        enable = true;
-      } // (attrsets.optionalAttrs cfg.host.enable host_profile)
-      // (attrsets.optionalAttrs cfg.vhost.enable vhost_profile)
-      // (attrsets.optionalAttrs cfg.netvm.enable netvm_profile)
-      // (attrsets.optionalAttrs cfg.guivm.enable guivm_profile)
-      // (attrsets.optionalAttrs cfg.appvm.enable appvm_profile);
-
+      ghaf.systemd.base =
+        {
+          enable = true;
+        }
+        // (attrsets.optionalAttrs cfg.host.enable host_profile)
+        // (attrsets.optionalAttrs cfg.vhost.enable vhost_profile)
+        // (attrsets.optionalAttrs cfg.netvm.enable netvm_profile)
+        // (attrsets.optionalAttrs cfg.guivm.enable guivm_profile)
+        // (attrsets.optionalAttrs cfg.appvm.enable appvm_profile);
     };
   }
